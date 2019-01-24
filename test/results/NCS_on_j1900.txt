@@ -1,0 +1,12 @@
+Plugin MYRIAD init!
+Loading network file:
+	model/face-detection-retail-0004/FP16/face-detection-retail-0004.xml
+	model/face-detection-retail-0004/FP16/face-detection-retail-0004.bin
+Input batch size: 1
+Input Shape: [1, 3, 300, 300]
+Output Shape: [1, 1, 200, 7]
+Load model to the plugin, time: 3275.566339ms
+Test picture has been prepared!
+Start sync inference
+End Sync inference, time: 71.573734ms
+6 faces detected!
