@@ -1,0 +1,5 @@
+{
+    "face_det_model":   "model/face-detection-retail-0004/FP32/face-detection-retail-0004.xml",
+    "face_det_weights": "model/face-detection-retail-0004/FP32/face-detection-retail-0004.bin",
+    "infer_dev":        "MYRAID"
+}
