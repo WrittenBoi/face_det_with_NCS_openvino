@@ -1,30 +1,46 @@
-[GBL]
 #Global config
+[GBL]
 debug = True
 #Color format: BGR
 label_text_color = (0, 0, 255)
 label_background_color = (125, 175, 75)
 box_color = (128, 255, 0)
 box_thickness = 1
-disp_wind_w = 800
-disp_wind_h = 600
-test_dir = test/face_det
-#test source: cam or pic
-test_src = pic
-#test_src = cam
-cam_idx = 0
+disp_wind_w = 640
+disp_wind_h = 480
 
-[FD]
+
 #Face detection config
+[FD]
 cpu_ext =  lib/libcpu_extension.so
 threshold = 0.3
-
 #config of CPU inference
-device = CPU
-model   = model/face-detection-retail-0004/FP32/face-detection-retail-0004.xml
-weights = model/face-detection-retail-0004/FP32/face-detection-retail-0004.bin
-
+#device = CPU
+#model   = model/face-detection-retail-0004/FP32/face-detection-retail-0004.xml
+#weights = model/face-detection-retail-0004/FP32/face-detection-retail-0004.bin
 #config of NCS inference
-#device = MYRIAD
-#model   = model/face-detection-retail-0004/FP16/face-detection-retail-0004.xml
-#weights = model/face-detection-retail-0004/FP16/face-detection-retail-0004.bin
+device = MYRIAD
+model   = model/face-detection-retail-0004/FP16/face-detection-retail-0004.xml
+weights = model/face-detection-retail-0004/FP16/face-detection-retail-0004.bin
+test_dir = test/face_det
+#test source: cam or pic
+#test_src = pic
+test_src = cam
+cam_idx = 0
+
+
+#Face recognition config
+[FR]
+cpu_ext =  lib/libcpu_extension.so
+threshold = 0.6
+#config of CPU inference
+#device = CPU
+#model = model/face-reidentification-retail-0095/FP32/face-reidentification-retail-0095.xml
+#weights = model/face-reidentification-retail-0095/FP32/face-reidentification-retail-0095.bin
+#config of NCS inference
+device = MYRIAD
+model = model/face-reidentification-retail-0095/FP16/face-reidentification-retail-0095.xml
+weights = model/face-reidentification-retail-0095/FP16/face-reidentification-retail-0095.bin
+#Test config
+std_face = test/face_reg/std_face/std.jpg
+match_dir = test/face_reg/match_faces
