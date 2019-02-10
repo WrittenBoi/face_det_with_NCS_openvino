@@ -72,9 +72,6 @@ class faceReg():
         return handle
 
     def get_ret_async(self):
-        ret = False
-        res = []
-
         #State code:
         #  OK = 0
         #  GENERAL_ERROR = -1
@@ -89,18 +86,20 @@ class faceReg():
         #  NOT_ALLOCATED = -10
         #  INFER_NOT_STARTED = -11
         #  NETWORK_NOT_READ = -12
+
+        res = None
         stat = self.exec_net.requests[0].wait(0)
+        #print("Fr obj stat", stat)
         if(stat == 0):
             #get result error fixing
-            stat = self.exec_net.requests[0].wait(-1)
+            self.exec_net.requests[0].wait(-1)
             self.last_infer_time = time() - self.last_infer_time
             #fetch reuslt
             res = self.exec_net.requests[0].outputs
             #Process reuslt
             res = np.squeeze(res[self.output_blob])
-            ret = True
 
-        return ret,res
+        return stat,res
 
     def cal_similarity(self, face1, face2):
         #Cal cosine distance
@@ -165,7 +164,7 @@ def main():
         #face = face_reg_obj.predict_sync(img)
         face_reg_obj.predict_async(img)
         ret,face = face_reg_obj.get_ret_async()
-        while(not ret):
+        while(ret != 0):
             ret,face = face_reg_obj.get_ret_async()
 
         #Cal similarity

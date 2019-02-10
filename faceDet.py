@@ -92,6 +92,7 @@ class faceDet():
         #  INFER_NOT_STARTED = -11
         #  NETWORK_NOT_READ = -12
         stat = self.exec_net.requests[0].wait(0)
+        #print("Fd stat", stat)
         if(stat == 0):
             #get result error fixing
             stat = self.exec_net.requests[0].wait(-1)
@@ -104,7 +105,7 @@ class faceDet():
 
             self.last_infer_time = (time() - self.last_infer_time) * 1000
 
-        return faces
+        return stat,faces
 
 def process_result(img, face_lst, box_color, box_thik, label_color):
     h,w,c = img.shape
@@ -160,9 +161,9 @@ def main():
             #Start inference
             #faces = face_det_obj.predict_sync(img)
             face_det_obj.predict_async(img)
-            faces = face_det_obj.get_ret_async()
+            stat,faces = face_det_obj.get_ret_async()
             while(faces == None):
-                faces = face_det_obj.get_ret_async()
+                stat,faces = face_det_obj.get_ret_async()
 
             #Process result
             img = cv2.resize(img, (dp_w, dp_h))
@@ -193,9 +194,9 @@ def main():
             #Start inference
             #faces = face_det_obj.predict_sync(img)
             face_det_obj.predict_async(img)
-            faces = face_det_obj.get_ret_async()
+            stat,faces = face_det_obj.get_ret_async()
             while(faces == None):
-                faces = face_det_obj.get_ret_async()
+                stat,faces = face_det_obj.get_ret_async()
 
             #Process result
             img = cv2.resize(img, (dp_w, dp_h))
